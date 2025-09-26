@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #bodyDiv{
+            text-align: center;
+        }
+        #generateBtn{
+            width: 200px;
+        }
+        input, select, option{
+            margin: 0;
+            padding: 0;
+            border: solid, black, 1px;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            font-size: 20px;
+        }
+        span{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="bodyDiv">
+        <select id="locationHalfSel">
+            <option>A</option>
+            <option>B</option>
+        </select>
+        <input id="locationRowInp" type="number" min="1" max="150" step="1">
+        <span>-</span>
+        <select id="locationRowHalfInp">
+            <option>X</option>
+            <option>Y</option>
+        </select>
+        <span>-</span>
+        <input id="locationRowPosInp" type="text">
+        <br>
+        <input id="generateBtn" type="button" value="Generuj">
+        <br>
+        <svg id="barcode"></svg>
+    </div>
+    <script src="JsBarcode.code128.min.js"></script>
+    <script>
+        document.querySelector("#locationRowInp").addEventListener("input", (e)=>{
+            let locationRowElem = document.querySelector("#locationRowInp");
+            if(locationRowElem.value.length > 3) locationRowElem.value = locationRowElem.value.slice(0, -1);
+        })
+         document.querySelector("#locationRowPosInp").addEventListener("input", (e)=>{
+            let locationRowPosElem = document.querySelector("#locationRowPosInp");
+            locationRowPosElem.value = e.data.toUpperCase();
+            if(locationRowPosElem.value.length > 1) locationRowPosElem.value = e.data;
+        })
+        document.querySelector("#generateBtn").addEventListener("click", ()=>{
+            let locationHalfVal = document.querySelector("#locationHalfSel").value;
+            let locationRowVal = document.querySelector("#locationRowInp").value;
+            let locationRowHalfVal = document.querySelector("#locationRowHalfInp").value;
+            let locationRowPosVal = document.querySelector("#locationRowPosInp").value;
+            let barcodeStringBuilder = locationHalfVal+locationRowVal+"-"+locationRowHalfVal+"-"+locationRowPosVal.toUpperCase();
+            
+            if((locationRowVal && locationRowPosVal) !== "") JsBarcode("#barcode", barcodeStringBuilder);
+        })
+    </script>
+</body>
+</html>
