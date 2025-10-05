@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Generator Kodu Miejsca</title>
     <style>
         #bodyDiv{
             text-align: center;
@@ -17,7 +17,7 @@
             border: solid, black, 1px;
             border-radius: 10px;
             height: 50px;
-            width: 50px;
+            width: 60px;
             font-size: 20px;
         }
         span{
@@ -50,11 +50,17 @@
             let locationRowElem = document.querySelector("#locationRowInp");
             if(locationRowElem.value.length > 3) locationRowElem.value = locationRowElem.value.slice(0, -1);
         })
+        document.querySelector("#locationRowInp").addEventListener("focusout", (e)=>{
+            let locationRowElem = document.querySelector("#locationRowInp");
+            if(locationRowElem.value.length < 3) locationRowElem.value = 0+locationRowElem.value;
+        })
+
          document.querySelector("#locationRowPosInp").addEventListener("input", (e)=>{
             let locationRowPosElem = document.querySelector("#locationRowPosInp");
             locationRowPosElem.value = e.data.toUpperCase();
             if(locationRowPosElem.value.length > 1) locationRowPosElem.value = e.data;
         })
+
         document.querySelector("#generateBtn").addEventListener("click", ()=>{
             let locationHalfVal = document.querySelector("#locationHalfSel").value;
             let locationRowVal = document.querySelector("#locationRowInp").value;
